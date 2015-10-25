@@ -45,57 +45,66 @@ extern int yydebug;
 # define YYTOKENTYPE
   enum yytokentype
   {
-    INT = 258,
-    CHAR = 259,
-    STRING = 260,
-    EQUAL = 261,
-    GT = 262,
-    LT = 263,
-    LTE = 264,
-    GTE = 265,
-    ET = 266,
-    SEMICOLON = 267,
-    COMMA = 268,
-    IF = 269,
-    ELSE = 270,
-    WHILE = 271,
-    MINUS = 272,
-    PLUS = 273,
-    STAR = 274,
-    DIV = 275,
-    VAR = 276,
-    NUMBER = 277,
-    STRING_LIT = 278,
-    CHAR_LIT = 279
+    VAR = 258,
+    NUMBER = 259,
+    CHAR_LIT = 260,
+    STRING_LIT = 261,
+    EQUAL = 262,
+    GT = 263,
+    LT = 264,
+    LTE = 265,
+    GTE = 266,
+    ET = 267,
+    PLUS = 268,
+    MINUS = 269,
+    STAR = 270,
+    DIV = 271,
+    INT = 272,
+    CHAR = 273,
+    STRING = 274,
+    SEMICOLON = 275,
+    COMMA = 276,
+    IF = 277,
+    ELSE = 278,
+    WHILE = 279
   };
 #endif
 /* Tokens.  */
-#define INT 258
-#define CHAR 259
-#define STRING 260
-#define EQUAL 261
-#define GT 262
-#define LT 263
-#define LTE 264
-#define GTE 265
-#define ET 266
-#define SEMICOLON 267
-#define COMMA 268
-#define IF 269
-#define ELSE 270
-#define WHILE 271
-#define MINUS 272
-#define PLUS 273
-#define STAR 274
-#define DIV 275
-#define VAR 276
-#define NUMBER 277
-#define STRING_LIT 278
-#define CHAR_LIT 279
+#define VAR 258
+#define NUMBER 259
+#define CHAR_LIT 260
+#define STRING_LIT 261
+#define EQUAL 262
+#define GT 263
+#define LT 264
+#define LTE 265
+#define GTE 266
+#define ET 267
+#define PLUS 268
+#define MINUS 269
+#define STAR 270
+#define DIV 271
+#define INT 272
+#define CHAR 273
+#define STRING 274
+#define SEMICOLON 275
+#define COMMA 276
+#define IF 277
+#define ELSE 278
+#define WHILE 279
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-typedef int YYSTYPE;
+typedef union YYSTYPE YYSTYPE;
+union YYSTYPE
+{
+#line 16 "lang.y" /* yacc.c:1909  */
+
+	union constant val;
+	nodeType *nptr;
+
+#line 107 "y.tab.h" /* yacc.c:1909  */
+};
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
 #endif
