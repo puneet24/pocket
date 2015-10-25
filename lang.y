@@ -47,8 +47,16 @@ statement_list: statement statement_list {}
 			 
 statement: declarative SEMICOLON {}
 		 |expression SEMICOLON { display($1); }
-		 |block SEMICOLON
+		 |block
 		 ;
+
+block: WHILE expression '{' statement_list '}'  {printf("while detected");}
+			 | IF expression '{' statement_list '}' optional  {printf("if detected");}
+			 ;
+
+optional: ELSE '{' statement_list '}'
+					|
+					;
 		 
 declarative: INT VAR { make_entry(1,$2); display_symbol_table();}
 		   |CHAR VAR		 { make_entry(2,$2); }
@@ -132,7 +140,6 @@ nodeType* make_node(int task,int type,union constant value){
 		ptr->val = value;
 	}
 	return ptr;
-
 }
 
 void make_entry(int type,union constant obj){
@@ -144,7 +151,6 @@ void make_entry(int type,union constant obj){
 			exit(0);
 		}
 	}
-
 	temp = (SYM_TAB*)malloc(sizeof(SYM_TAB));
 	temp->datatype = type;
 	temp->next = NULL;

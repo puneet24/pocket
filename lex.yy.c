@@ -887,7 +887,7 @@ YY_RULE_SETUP
 case 24:
 YY_RULE_SETUP
 #line 32 "lex.l"
-{ ;  }
+{ return *yytext;  }
 	YY_BREAK
 case 25:
 YY_RULE_SETUP

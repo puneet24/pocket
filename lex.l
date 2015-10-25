@@ -29,7 +29,7 @@ else {return ELSE;}
 (=) {strcpy(yylval.val.sname,yytext);return EQUAL;}
 [a-zA-Z_][a-zA-Z]* {strcpy(yylval.val.sname,yytext);return VAR;}
 [0-9]+ {yylval.val.ival = atoi(yytext); return NUMBER;}
-. { ;  }
+. { return *yytext;  }
 %%
 
 
