@@ -98,12 +98,13 @@ extern int yydebug;
 typedef union YYSTYPE YYSTYPE;
 union YYSTYPE
 {
-#line 16 "lang.y" /* yacc.c:1909  */
+#line 21 "lang.y" /* yacc.c:1909  */
 
 	union constant val;
+	char code[1000];
 	nodeType *nptr;
 
-#line 107 "y.tab.h" /* yacc.c:1909  */
+#line 108 "y.tab.h" /* yacc.c:1909  */
 };
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
