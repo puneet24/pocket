@@ -66,7 +66,8 @@ extern int yydebug;
     COMMA = 276,
     IF = 277,
     ELSE = 278,
-    WHILE = 279
+    WHILE = 279,
+    FOR = 280
   };
 #endif
 /* Tokens.  */
@@ -92,19 +93,20 @@ extern int yydebug;
 #define IF 277
 #define ELSE 278
 #define WHILE 279
+#define FOR 280
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE YYSTYPE;
 union YYSTYPE
 {
-#line 21 "lang.y" /* yacc.c:1909  */
+#line 22 "lang.y" /* yacc.c:1909  */
 
 	union constant val;
 	char code[1000];
 	nodeType *nptr;
 
-#line 108 "y.tab.h" /* yacc.c:1909  */
+#line 110 "y.tab.h" /* yacc.c:1909  */
 };
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1

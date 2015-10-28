@@ -1,0 +1,57 @@
+MOVE $t0,5
+MOVE a,$t0
+MOVE $t0,5
+MOVE b,$t0
+MOVE $t0,5
+MOVE c,$t0
+MOVE $t0,a
+BEQZ $t0,O2
+MOVE $t0,b
+MOVE $t1,1
+ADD $t0,$t1
+MOVE b,$t0
+MOVE $t0,c
+MOVE $t1,1
+ADD $t0,$t1
+MOVE c,$t0
+MOVE $t0,a
+BEQZ $t0,O1
+MOVE $t0,a
+MOVE $t1,b
+MUL $t0,$t1
+MOVE h,$t0
+O1:
+JMP O3
+O2:
+MOVE $t0,a
+MOVE $t1,b
+MOVE $t2,c
+MUL $t1,$t2
+ADD $t0,$t1
+MOVE f,$t0
+O3:
+L2:
+MOVE $t0,a
+BEQZ $t0,O5
+MOVE $t0,a
+MOVE $t1,b
+MOVE $t2,c
+MUL $t1,$t2
+ADD $t0,$t1
+MOVE d,$t0
+L1:
+MOVE $t0,d
+BEQZ $t0,O4
+MOVE $t0,a
+MOVE $t1,b
+MOVE $t2,c
+MOVE $t3,d
+ADD $t2,$t3
+ADD $t1,$t2
+ADD $t0,$t1
+MOVE e,$t0
+jmp L1
+O4:
+jmp L2
+O5:
+

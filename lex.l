@@ -16,6 +16,7 @@ char { return CHAR;}
 string {return STRING;}
 if {return IF;}
 while {return WHILE;}
+for {return FOR;}
 else {return ELSE;}
 - {strcpy(yylval.val.sname,yytext);return MINUS;}
 \+ {strcpy(yylval.val.sname,yytext);return PLUS;}

@@ -14,6 +14,7 @@ char *generate_code_for_op(char*,int);
 char *generate_expression_code(nodeType*,int);
 char *generate_code_while(char*,char*);
 char *generate_code_if(char*,char*,char*);
+char *generate_code_for(char*,char*,char*,char*);
 SYM_TAB *start_sym = NULL;
 int labelcount = 1, outcount = 1;
 %}
@@ -42,7 +43,7 @@ int labelcount = 1, outcount = 1;
 %type <nptr> const expression
 %type <code> program statement statement_list block declarative optional
 
-%token INT CHAR STRING SEMICOLON COMMA IF ELSE WHILE
+%token INT CHAR STRING SEMICOLON COMMA IF ELSE WHILE FOR
 
 %%
 program: statement_list SEMICOLON {/*display_symbol_table();*/ strcpy($$,$1); printf("%s\n",$$); exit(0);}
@@ -57,7 +58,8 @@ statement: declarative SEMICOLON { strcpy($$,""); }
 		 |block { strcpy($$,$1); }
 		 ;
 
-block: WHILE expression '{' statement_list '}'  { char h[1000] = ""; strcpy(h, generate_expression_code($2,-1)); strcpy($$,generate_code_while(h,$4)); }
+block: FOR '('expression SEMICOLON expression SEMICOLON expression ')' '{' statement_list '}' { char i[1000]="",j[1000]="",k[1000]=""; strcpy(i,generate_expression_code($3,-1)); strcpy(j,generate_expression_code($5,-1)); strcpy(k,generate_expression_code($7,-1)); strcpy($$,generate_code_for(i,j,k,$10)); }
+			 |WHILE expression '{' statement_list '}'  { char h[1000] = ""; strcpy(h, generate_expression_code($2,-1)); strcpy($$,generate_code_while(h,$4)); }
 			 | IF expression '{' statement_list '}' optional  { char h[1000] = ""; strcpy(h, generate_expression_code($2,-1)); strcpy($$,generate_code_if(h,$4,$6)); /*printf("****\n%s",$$)*/ }
 			 ;
 
@@ -91,6 +93,26 @@ const: NUMBER { $$ = make_node(0,1,$1); }
 
 void yyerror(char *s) {
 	fprintf(stderr, "%s\n", s);
+}
+
+char *generate_code_for(char *s1,char *s2,char *s3,char *s4){
+	char str[1000] = "";
+	char temp[1000] = "";
+	strcpy(str,s1);
+	sprintf(temp,"L%d:\n",labelcount);
+	strcat(str,temp);
+	strcat(str,s2);
+	sprintf(temp,"BEQZ $t0,O%d\n",outcount);
+	strcat(str,temp);
+	strcat(str,s3);
+	strcat(str,s4);
+	sprintf(temp,"jmp L%d\n",labelcount);
+	strcat(str,temp);
+	sprintf(temp,"O%d:\n",outcount);
+	strcat(str,temp);
+	labelcount++;
+	outcount++;
+	return str;
 }
 
 char *generate_code_if(char *s1,char *s2,char *s3){
