@@ -94,8 +94,8 @@ void yyerror(char *s) {
 }
 
 char *generate_code_if(char *s1,char *s2,char *s3){
-	char str[1000] = "";
-	char temp[1000] = "";
+	char *str = (char *) malloc(1000);
+	char *temp = (char *) malloc(1000);
 	strcpy(str,s1);
 	if(strlen(s3) == 0){
 		sprintf(temp,"BEQZ $t0,O%d\n",outcount);
@@ -122,8 +122,8 @@ char *generate_code_if(char *s1,char *s2,char *s3){
 }
 
 char *generate_code_while(char *s1,char *s2){
-	char str[1000] = "";
-	char temp[1000] = "";
+	char *str = (char *) malloc(1000);
+	char *temp = (char *) malloc(1000);
 	sprintf(str,"L%d:\n",labelcount);
 	strcat(str,s1);
 	sprintf(temp,"BEQZ $t0,O%d\n",outcount);
@@ -139,7 +139,7 @@ char *generate_code_while(char *s1,char *s2){
 }
 
 char *generate_code_for_op(char *str,int no){
-	char temp[1000];
+	char *temp = (char *) malloc(1000);
 	if(strcmp(str,"+") == 0){
 		sprintf(temp,"ADD $t%d,$t%d\n",no+1,no+2);
 	}
@@ -156,10 +156,9 @@ char *generate_code_for_op(char *str,int no){
 }
 
 char *generate_expression_code(nodeType *root,int no){
-	char str[1000];
+	char *str = (char *) malloc(1000);
 	if(root->typo == 2 && strcmp(root->val.sname,"=") == 0){
 		strcpy(str,generate_expression_code(root->right,no));
-		
 		char temp[1000];
 		strcpy(temp,"MOVE ");
 		strcat(temp,root->left->sym_ptr->symbol_name);
@@ -225,9 +224,10 @@ nodeType* add_node(nodeType *mid,nodeType *l,nodeType *r){
 	return mid;
 }
 
+
 nodeType* make_node(int task,int type,union constant value){
-	nodeType *ptr;
-	ptr = (nodeType*)malloc(sizeof(nodeType));
+	
+	nodeType *ptr = (nodeType*)malloc(sizeof(nodeType));
 	ptr->left = NULL;
 	ptr->right = NULL;
 	ptr->typo = task;
@@ -246,7 +246,7 @@ nodeType* make_node(int task,int type,union constant value){
 		ptr->val = value;
 		ptr->datatype = type;
 	}
-	else{
+	else{	
 		ptr->val = value;
 	}
 	return ptr;
